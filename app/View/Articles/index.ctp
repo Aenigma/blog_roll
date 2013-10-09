@@ -1,31 +1,42 @@
-<div class="articles index">
-	<h2><?php echo __('Articles'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('title'); ?></th>
-			<th><?php echo $this->Paginator->sort('body'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($articles as $article): ?>
-	<tr>
-		<td><?php echo h($article['Article']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($article['User']['id'], array('controller' => 'users', 'action' => 'view', $article['User']['id'])); ?>
-		</td>
-		<td><?php echo h($article['Article']['created']); ?>&nbsp;</td>
-		<td><?php echo h($article['Article']['title']); ?>&nbsp;</td>
-		<td><?php echo h($article['Article']['body']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $article['Article']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $article['Article']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $article['Article']['id']), null, __('Are you sure you want to delete # %s?', $article['Article']['id'])); ?>
-		</td>
-	</tr>
+<?php foreach ($articles as $article): ?>
+	<article>
+		<section class='article-metadata'>
+		  <h2><?php echo h($article['Article']['title']); ?></h2>
+		  Posted on
+		  <time datetime='2013-09-17 15:00'><?php echo h($article['Article']['created']); ?></time>
+		  by
+		  <?php echo $this->Html->link($article['User']['username'], array('controller' => 'users', 'action' => 'view', $article['User']['id']), array('rel' => 'author')); ?>
+		  <ul class='list-inline'>
+			<li>
+			  <a href='./categories/1'>
+				<span class='label label-info'>Category1</span>
+			  </a>
+			</li>
+			<li>
+			  <a href='./categories/2'>
+				<span class='label label-info'>Category2</span>
+			  </a>
+			</li>
+		  </ul>
+		</section>
+		<!-- This entire section should probably be HTML from server -->
+		<div class='article-body'>
+		  <?php echo h($article['Article']['body']); ?>
+		</div>
+		<div class='article-extras'>
+		  <span class='glyphicon glyphicon-chevron-up upvote'></span>
+		  <span class='badge'>10</span>
+		  <span class='glyphicon glyphicon-chevron-down'></span>
+		  <button class='btn btn-primary btn-sm' type='button'>Comment</button>
+		  <a class='btn btn-primary btn-sm' href='articleedit.html'>Edit</a>
+		  <div class='article-extras-social pull-right'>
+			<button class='btn btn-xs' type='button'>Facebook</button>
+			<button class='btn btn-xs' type='button'>Google+</button>
+			<button class='btn btn-xs' type='button'>Twitter</button>
+		  </div>
+		</div>
+	</article>
 <?php endforeach; ?>
-	</table>
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
@@ -39,20 +50,4 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Article'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Article Images'), array('controller' => 'article_images', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Article Image'), array('controller' => 'article_images', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comments'), array('controller' => 'comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ratings'), array('controller' => 'ratings', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Rating'), array('controller' => 'ratings', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Categories'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Category'), array('controller' => 'categories', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<?php //debug($articles); ?>

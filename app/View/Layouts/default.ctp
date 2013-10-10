@@ -29,17 +29,18 @@
         </div>
         <div class='collapse navbar-collapse'>
           <ul class='nav navbar-nav'>
-            <li class='active'>
-              <a href='/'>Home</a>
+            <li>
+              <?php echo $this->Html->link('Home','/');?>
             </li>
             <li class='dropdown'>
-              <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-                Archives
-                <b class='caret'></b>
-              </a>
+              <?php
+                echo $this->Html->link('Archives' . $this->Html->tag('b', '',array('class'=>'caret')), '#',array('escape'=>false,'data-toggle'=>'dropdown'))
+              ?>
               <ul class='dropdown-menu'>
                 <li>
-                  <a href='/authors/'>By Author...</a>
+                <?php
+                echo $this->Html->link('By Author...','/articles/index/sort:author/direction;asc');
+                ?>
                 </li>
                 <li>
                   <a href='/categories/'>By Category...</a>
@@ -64,6 +65,66 @@
 		<?php echo $this->Session->flash(); ?>
 		<?php echo $this->fetch('content'); ?>
 		<?php //echo $this->element('sql_dump'); ?>
+    <div aria-hidden='true' aria-labeledby='signinmodal' class='modal fade' id='signin' role='dialog' tabindex='-1'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>&times;</button>
+            <h4 class='modal-title'>Sign In</h4>
+          </div>
+          <div class='modal-body'>
+            <form role='form'>
+              <div class='form-group'>
+                <label for='signin-username'>Username</label>
+                <input class='form-control' id='signin-username' placeholder='Your username' type='text'>
+              </div>
+              <div class='form-group'>
+                <label for='signin-password'>Password</label>
+                <input class='form-control' id='signin-password' placeholder='Password' type='password'>
+              </div>
+            </form>
+          </div>
+          <div class='modal-footer'>
+            <button class='btn btn-primary'>Sign in</button>
+            <button class='btn btn-default' data-target='#signup' data-toggle='modal'>Sign up</button>
+            <button class='btn btn-default' data-dismiss='modal'>Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden='true' aria-labeledby='signupmodal' class='modal fade' id='signup' role='dialog' tabindex='-1'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>&times;</button>
+            <h4 class='modal-title'>Sign Up</h4>
+          </div>
+          <div class='modal-body'>
+            <form role='form'>
+              <div class='form-group'>
+                <label for='signup-username'>Username</label>
+                <input class='form-control' id='signup-username' placeholder='Your username' type='text'>
+              </div>
+              <div class='form-group'>
+                <label for='signup-email'>Email</label>
+                <input class='form-control' id='signup-email' placeholder='Your Email' type='email'>
+              </div>
+              <div class='form-group'>
+                <label for='signup-password1'>Password</label>
+                <input class='form-control' id='signup-password1' placeholder='Enter Your Password' type='password'>
+              </div>
+              <div class='form-group'>
+                <label for='signup-password2'>Re-Enter Password</label>
+                <input class='form-control' id='signup-password2' placeholder='Enter Password Again' type='password'>
+              </div>
+            </form>
+          </div>
+          <div class='modal-footer'>
+            <button class='btn btn-primary'>Submit</button>
+            <button class='btn btn-default' data-dismiss='modal'>Cancel</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

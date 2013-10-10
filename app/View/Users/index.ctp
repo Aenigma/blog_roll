@@ -1,10 +1,9 @@
 <div class="users index">
-	<h2><?php echo __('Users'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+  <h1><?php echo __('Users'); ?></h1>
+	<table class='table table-hover'>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('username'); ?></th>
-			<th><?php echo $this->Paginator->sort('password'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
 			<th><?php echo $this->Paginator->sort('is_author'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
@@ -14,43 +13,69 @@
 	<tr>
 		<td><?php echo h($user['User']['id']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['username']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['password']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['is_author']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $user['User']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $user['User']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $user['User']['id']), null, __('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
-		</td>
+      <ul class='list-inline'>
+        <li>
+        <?php
+          echo $this->Html->link(__('View'),
+            array('action' => 'view',
+            $user['User']['id']),
+            array('class' => 'btn btn-primary btn-xs'));
+        ?>
+        </li>
+        <li>
+        <?php
+          echo $this->Html->link(__('Edit'),
+            array('action' => 'edit',
+            $user['User']['id']),
+            array('class' => 'btn btn-primary btn-xs'));
+        ?>
+        </li>
+        <li>
+        <?php
+          echo $this->Form->postLink(__('Delete'),
+            array('action' => 'delete',
+            $user['User']['id']), array('class' => 'btn btn-primary btn-xs'),
+            __('Are you sure you want to delete # %s?',
+            $user['User']['id']));
+        ?>
+        </li>
+      </ul>
+    </td>
 	</tr>
-<?php endforeach; ?>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
+  <?php endforeach; ?>
+  </table>
 	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
+  <ul class='pagination centered'>
+    <li>
+    <?php echo $this->Paginator->prev('&laquo;',
+      array('escape'=>false, 'tag'=>false),
+      null,
+      array('escape'=>false, 'tag'=>'a', 'class'=>'disabled'));
+    ?>
+    </li>
+    <?php
+    $this->Paginator->numbers(array(
+      'separator' => '',
+      'first' => 1,
+      'tag' => 'li',
+      'currentClass' => 'active'
+      ));
+    ?>
+    <li>
+    <?php echo $this->Paginator->next('&raquo;',
+      array('escape'=>false, 'tag'=>false),
+      null,
+      array('escape'=>false, 'tag'=>'a', 'class'=>'disabled'));
+    ?>
+    </li>
+  </ul>
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Articles'), array('controller' => 'articles', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comments'), array('controller' => 'comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ratings'), array('controller' => 'ratings', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Rating'), array('controller' => 'ratings', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List User Profiles'), array('controller' => 'user_profiles', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User Profile'), array('controller' => 'user_profiles', 'action' => 'add')); ?> </li>
-	</ul>
+	<h1><?php echo __('Actions'); ?></h1>
+  <?php echo $this->Html->link(__('New User'), array('action' => 'add'),array('class'=>'btn btn-primary')); ?>
 </div>

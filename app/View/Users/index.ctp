@@ -58,10 +58,10 @@
     ?>
     </li>
     <?php
-    $this->Paginator->numbers(array(
+    echo $this->Paginator->numbers(array(
       'separator' => '',
-      'first' => 1,
       'tag' => 'li',
+      'currentTag' => 'a',
       'currentClass' => 'active'
       ));
     ?>

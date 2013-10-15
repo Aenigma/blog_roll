@@ -62,9 +62,9 @@
 			<td><?php echo $article['title']; ?></td>
 			<td><?php echo $article['body']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'articles', 'action' => 'view', $article['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'articles', 'action' => 'edit', $article['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'articles', 'action' => 'delete', $article['id']), null, __('Are you sure you want to delete # %s?', $article['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'articles', 'action' => 'view', $article['id']),array('class'=>'btn btn-primary btn-xs')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'articles', 'action' => 'edit', $article['id']),array('class'=>'btn btn-primary btn-xs')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'articles', 'action' => 'delete', $article['id']), array('class'=>'btn btn-primary btn-xs'), __('Are you sure you want to delete # %s?', $article['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -97,9 +97,9 @@
 			<td><?php echo $comment['created']; ?></td>
 			<td><?php echo $comment['body']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'comments', 'action' => 'view', $comment['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'comments', 'action' => 'edit', $comment['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'comments', 'action' => 'delete', $comment['id']), null, __('Are you sure you want to delete # %s?', $comment['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'comments', 'action' => 'view', $comment['id']),array('class'=>'btn btn-primary btn-xs')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'comments', 'action' => 'edit', $comment['id']),array('class'=>'btn btn-primary btn-xs')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'comments', 'action' => 'delete', $comment['id']), array('class'=>'btn btn-primary btn-xs'), __('Are you sure you want to delete # %s?', $comment['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -130,9 +130,9 @@
 			<td><?php echo $rating['user_id']; ?></td>
 			<td><?php echo $rating['value']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'ratings', 'action' => 'view', $rating['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'ratings', 'action' => 'edit', $rating['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'ratings', 'action' => 'delete', $rating['id']), null, __('Are you sure you want to delete # %s?', $rating['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'ratings', 'action' => 'view', $rating['id']),array('class'=>'btn btn-primary btn-xs')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'ratings', 'action' => 'edit', $rating['id']),array('class'=>'btn btn-primary btn-xs')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'ratings', 'action' => 'delete', $rating['id']), array('class'=>'btn btn-primary btn-xs'), __('Are you sure you want to delete # %s?', $rating['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -173,9 +173,10 @@
 			<td><?php echo $userProfile['facebook']; ?></td>
 			<td><?php echo $userProfile['twitter']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'user_profiles', 'action' => 'view', $userProfile['user_id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'user_profiles', 'action' => 'edit', $userProfile['user_id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'user_profiles', 'action' => 'delete', $userProfile['user_id']), null, __('Are you sure you want to delete # %s?', $userProfile['user_id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'user_profiles', 'action' => 'view', $userProfile['user_id']),array('class'=>'btn btn-primary btn-xs')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'user_profiles', 'action' => 'edit', $userProfile['user_id']),array('class'=>'btn btn-primary btn-xs')); ?>
+        <?php echo $this->Form->postLink(__('Delete'),
+          array('controller' => 'user_profiles', 'action' => 'delete', $userProfile['user_id']), array('class'=>'btn btn-primary btn-xs'), __('Are you sure you want to delete # %s?', $userProfile['user_id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

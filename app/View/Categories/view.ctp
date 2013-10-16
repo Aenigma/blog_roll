@@ -1,61 +1,44 @@
-<div class="categories view">
-<h2><?php echo __('Category'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($category['Category']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
-			<?php echo h($category['Category']['name']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Category'), array('action' => 'edit', $category['Category']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Category'), array('action' => 'delete', $category['Category']['id']), null, __('Are you sure you want to delete # %s?', $category['Category']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Categories'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Category'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Articles'), array('controller' => 'articles', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Articles'); ?></h3>
-	<?php if (!empty($category['Article'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Title'); ?></th>
-		<th><?php echo __('Body'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($category['Article'] as $article): ?>
-		<tr>
-			<td><?php echo $article['id']; ?></td>
-			<td><?php echo $article['user_id']; ?></td>
-			<td><?php echo $article['created']; ?></td>
-			<td><?php echo $article['title']; ?></td>
-			<td><?php echo $article['body']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'articles', 'action' => 'view', $article['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'articles', 'action' => 'edit', $article['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'articles', 'action' => 'delete', $article['id']), null, __('Are you sure you want to delete # %s?', $article['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+<h1><?php echo h($category['Category']['name']); ?></h1>
+	
+<?php foreach ($category['Article'] as $article): ?>
+	<article>
+		<section class='article-metadata'>
+		  <h3><?php echo h($article['title']); ?></h3>
+		  Posted on
+		  <time datetime='2013-09-17 15:00'><?php echo h($article['created']); ?></time>
+		  by
+		 <li><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?> </li>
+		  <ul class='list-inline'>
+			<li>
+			  <a href='./categories/1'>
+				<span class='label label-info'>Category1</span>
+			  </a>
+			</li>
+			<li>
+			  <a href='./categories/2'>
+				<span class='label label-info'>Category2</span>
+			  </a>
+			</li>
+		  </ul>
+		</section>
+		<!-- This entire section should probably be HTML from server -->
+		<div class='article-body'>
+		  <?php echo h($article['body']); ?>
+		</div>
+		<div class='article-extras'>
+		  <span class='glyphicon glyphicon-chevron-up upvote'></span>
+		  <span class='badge'>10</span>
+		  <span class='glyphicon glyphicon-chevron-down'></span>
+		  <button class='btn btn-primary btn-sm' type='button'>Comment</button>
+		  <a class='btn btn-primary btn-sm' href='articleedit.html'>Edit</a>
+		  <div class='article-extras-social pull-right'>
+			<button class='btn btn-xs' type='button'>Facebook</button>
+			<button class='btn btn-xs' type='button'>Google+</button>
+			<button class='btn btn-xs' type='button'>Twitter</button>
+		  </div>
+		</div>
+	</article>
+<?php endforeach; ?>
+<?php debug($category);?>
 </div>

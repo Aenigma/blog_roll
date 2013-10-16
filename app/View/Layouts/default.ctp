@@ -39,14 +39,23 @@
               <ul class='dropdown-menu'>
                 <li>
                 <?php
-                echo $this->Html->link('By Author...','/articles/index/sort:author/direction;asc');
+                  echo $this->Html->link('Author...','/articles/index/sort:author/direction;asc');
                 ?>
                 </li>
                 <li>
-                  <a href='/categories/'>By Category...</a>
+                <?php
+                  echo $this->Html->link('Categories...','/categories');
+                ?>
                 </li>
                 <li>
-                  <a href='/posts/'>By Date...</a>
+                <?php
+                  echo $this->Html->link('Users...','/users');
+                ?>
+                </li>
+				<li>
+                <?php
+                echo $this->Html->link('Articles...','/Articles');
+                ?>
                 </li>
               </ul>
             </li>
@@ -62,7 +71,12 @@
       </div>
     </div>
     <div class='container'>
-		<?php echo $this->Session->flash(); ?>
+		<?php if($alert = $this->Session->flash()): ?>
+		  <div class="alert alert-info alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<?php echo $alert; ?>
+		  </div>
+		<?php endif; ?>
 		<?php echo $this->fetch('content'); ?>
 		<?php //echo $this->element('sql_dump'); ?>
     <div aria-hidden='true' aria-labeledby='signinmodal' class='modal fade' id='signin' role='dialog' tabindex='-1'>

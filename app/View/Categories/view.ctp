@@ -40,5 +40,4 @@
 		</div>
 	</article>
 <?php endforeach; ?>
-<?php debug($category);?>
 </div>

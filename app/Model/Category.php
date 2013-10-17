@@ -13,6 +13,8 @@ class Category extends AppModel {
  * @var string
  */
 	public $displayField = 'name';
+	
+	public $actsAs = array('Containable');
 
 /**
  * Validation rules

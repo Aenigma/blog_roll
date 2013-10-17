@@ -34,12 +34,12 @@
             </li>
             <li class='dropdown'>
               <?php
-                echo $this->Html->link('Archives' . $this->Html->tag('b', '',array('class'=>'caret')), '#',array('escape'=>false,'data-toggle'=>'dropdown'))
+                echo $this->Html->link('Navigation' . $this->Html->tag('b', '',array('class'=>'caret')), '#',array('escape'=>false,'data-toggle'=>'dropdown'))
               ?>
               <ul class='dropdown-menu'>
                 <li>
                 <?php
-                  echo $this->Html->link('Author...','/articles/index/sort:author/direction;asc');
+                  echo $this->Html->link('Articles by Author...','/articles/index/sort:author/direction;asc');
                 ?>
                 </li>
                 <li>
@@ -50,11 +50,6 @@
                 <li>
                 <?php
                   echo $this->Html->link('Users...','/users');
-                ?>
-                </li>
-				<li>
-                <?php
-                echo $this->Html->link('Articles...','/Articles');
                 ?>
                 </li>
               </ul>

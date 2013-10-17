@@ -111,7 +111,10 @@ class User extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		),
+		)
+	);
+	
+	public $hasOne = array(
 		'UserProfile' => array(
 			'className' => 'UserProfile',
 			'foreignKey' => 'user_id',
@@ -125,6 +128,5 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		)
-	);
-
+	); 
 }

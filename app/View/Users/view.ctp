@@ -1,6 +1,6 @@
 <div class="users view">
 <h2><?php echo __('User'); ?></h2>
-<?php $userProfile = $user['UserProfile'][0]; ?>
+<?php $userProfile = $user['UserProfile']; ?>
 	<dl class="dl-horizontal">
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>

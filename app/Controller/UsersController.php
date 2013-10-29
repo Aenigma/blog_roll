@@ -13,17 +13,27 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Auth', 'Paginator');
 	
 	public $paginate = array(
 		'limit' => 2
 	);
+	
+	public function login() {
+	
+	}
+	
+	public function logout() {
+	
+	
+	}
 
 /**
  * index method
  *
  * @return void
  */
+ 
 	public function index() {
 		$this->Paginator->settings = $this->paginate;
 		$this->User->recursive = 0;

@@ -82,7 +82,7 @@
             <h4 class='modal-title'>Sign In</h4>
           </div>
           <div class='modal-body'>
-            <form role='form'>
+            <?php echo $this->Form->create("User", array("role" => 'form')); ?>
               <div class='form-group'>
                 <label for='signin-username'>Username</label>
                 <input class='form-control' id='signin-username' placeholder='Your username' type='text'>
@@ -91,7 +91,9 @@
                 <label for='signin-password'>Password</label>
                 <input class='form-control' id='signin-password' placeholder='Password' type='password'>
               </div>
-            </form>
+			  <?php echo $this->Form->input('username', array('class' => 'form-group')); ?>
+			  <?php echo $this->Form->input('password', array('class' => 'form-group')); ?>
+            <?php echo $this->Form->end(); ?>
           </div>
           <div class='modal-footer'>
             <button class='btn btn-primary'>Sign in</button>
@@ -109,7 +111,7 @@
             <h4 class='modal-title'>Sign Up</h4>
           </div>
           <div class='modal-body'>
-            <form role='form'>
+			<?php echo $this->Form->input("User", array("role" => 'form')); ?>
               <div class='form-group'>
                 <label for='signup-username'>Username</label>
                 <input class='form-control' id='signup-username' placeholder='Your username' type='text'>
@@ -126,7 +128,7 @@
                 <label for='signup-password2'>Re-Enter Password</label>
                 <input class='form-control' id='signup-password2' placeholder='Enter Password Again' type='password'>
               </div>
-            </form>
+            <?php echo $this->Form->end(); ?>
           </div>
           <div class='modal-footer'>
             <button class='btn btn-primary'>Submit</button>

@@ -14,6 +14,11 @@ class ArticlesController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
+	
+	public function beforeFilter() {
+		$this->Auth->allow('index', 'view');
+		return parent::beforeFilter();
+	}
 
 /**
  * index method
@@ -21,6 +26,7 @@ class ArticlesController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->Auth->allow(); 
 		$this->Article->recursive = 0;
 		$this->set('articles', $this->Paginator->paginate());
 	}

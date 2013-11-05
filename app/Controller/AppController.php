@@ -32,7 +32,25 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-	public $components = array("Auth" => array(
-		
-	)); 
+	public $components = array(
+		"Auth" => array(
+			'loginRedirect' => array("controller" => 'articles', 'action' => 'index'),
+			'logoutRedirect' => array("controller" => 'articles', 'action' => 'index'),
+			'loginAction' => array("controller" => 'articles', 'action' => 'index'),
+		), 
+		"Session"
+	); 
+	
+	public function beforeFilter() {
+		$this->Auth->allow('index', 'view');
+		return parent::beforeFilter(); 
+	}
+	
+	public function isCurrentUserAnAuthor() {
+		if($is_author = $this->Auth->user('is_author')) {
+			return $is_author; 
+		} else{
+			return false;
+		}
+	}
 }

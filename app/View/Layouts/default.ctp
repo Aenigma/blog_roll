@@ -81,25 +81,23 @@
             <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>&times;</button>
             <h4 class='modal-title'>Sign In</h4>
           </div>
-          <div class='modal-body'>
-            <?php echo $this->Form->create("User", array("role" => 'form')); ?>
-              <div class='form-group'>
-                <label for='signin-username'>Username</label>
-                <input class='form-control' id='signin-username' placeholder='Your username' type='text'>
-              </div>
-              <div class='form-group'>
-                <label for='signin-password'>Password</label>
-                <input class='form-control' id='signin-password' placeholder='Password' type='password'>
-              </div>
-			  <?php echo $this->Form->input('username', array('class' => 'form-group')); ?>
-			  <?php echo $this->Form->input('password', array('class' => 'form-group')); ?>
-            <?php echo $this->Form->end(); ?>
-          </div>
-          <div class='modal-footer'>
-            <button class='btn btn-primary'>Sign in</button>
-            <button class='btn btn-default' data-target='#signup' data-toggle='modal'>Sign up</button>
-            <button class='btn btn-default' data-dismiss='modal'>Cancel</button>
-          </div>
+		  <?php echo $this->Form->create("User", array("url" => array('controller' => 'users', 'action' => 'login'), "role" => 'form')); ?>
+			  <div class='modal-body'>
+				  <div class='form-group'>
+					<label for='signin-username'>Username</label>
+					<?php echo $this->Form->input('username', array('class' => 'form-control','div' => false, 'label' => false)); ?>
+				  </div>
+				  <div class='form-group'>
+					<label for='signin-password'>Password</label>
+					<?php echo $this->Form->input('password', array('class' => 'form-control', 'div' => false, 'label' => false)); ?>
+				  </div>
+			  </div>
+			  <div class='modal-footer'>
+				<button class='btn btn-primary'>Sign in</button>
+				<button class='btn btn-default' data-target='#signup' data-toggle='modal'>Sign up</button>
+				<button class='btn btn-default' data-dismiss='modal'>Cancel</button>
+			  </div>
+		  <?php echo $this->Form->end(); ?>
         </div>
       </div>
     </div>

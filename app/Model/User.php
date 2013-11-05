@@ -129,4 +129,18 @@ class User extends AppModel {
 			'counterQuery' => ''
 		)
 	); 
+	
+	public function beforeSave($options = array()) {
+		if(!empty($this->data['User']['password'])) {
+			$user = $this->find('first', array(
+				'conditions' => array('User.id' => $this->data['User']['id']),
+				'fields' => array('User.password')
+			));
+			$this->log($user);
+			if($user['User']['password'] != $this->data['User']['password']) {
+				$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+			}
+		}		
+		return parent::beforeSave($options); 
+	}
 }

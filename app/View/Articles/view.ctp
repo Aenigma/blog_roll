@@ -1,14 +1,14 @@
 <div class="articles view">
 <h2><?php echo __('Article'); ?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
+	
 		<dd>
-			<?php echo h($article['Article']['id']); ?>
+			<?php echo h($article['Article']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('User'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($article['User']['id'], array('controller' => 'users', 'action' => 'view', $article['User']['id'])); ?>
+			<?php echo $this->Html->link($article['User'], array('controller' => 'users', 'action' => 'view', $article['User']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Created'); ?></dt>
@@ -53,7 +53,7 @@
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Article Id'); ?></th>
+		<th><?php echo __('Article '); ?></th>
 		<th><?php echo __('File'); ?></th>
 		<th><?php echo __('Name'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
@@ -61,13 +61,13 @@
 	<?php foreach ($article['ArticleImage'] as $articleImage): ?>
 		<tr>
 			<td><?php echo $articleImage['id']; ?></td>
-			<td><?php echo $articleImage['article_id']; ?></td>
+			<td><?php echo $articleImage['article']; ?></td>
 			<td><?php echo $articleImage['file']; ?></td>
 			<td><?php echo $articleImage['name']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'article_images', 'action' => 'view', $articleImage['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'article_images', 'action' => 'edit', $articleImage['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'article_images', 'action' => 'delete', $articleImage['id']), null, __('Are you sure you want to delete # %s?', $articleImage['id'])); ?>
+				<?php echo $this->Html->link(__('  View  '), array('controller' => 'article_images', 'action' => '  view ', $articleImage['id'])); ?>
+				<?php echo $this->Html->link(__('  Edit  '), array('controller' => 'article_images', 'action' => '  edit  ', $articleImage['id'])); ?>
+				<?php echo $this->Form->postLink(__('  Delete  '), array('controller' => 'article_images', '  action  ' => '  delete', $articleImage['id']), null, __('Are you sure you want to delete # %s?', $articleImage['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -85,11 +85,11 @@
 	<?php if (!empty($article['Comment'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th><?php echo __('Article Id'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Body'); ?></th>
+		<th><?php echo __('Id '); ?></th>
+		<th><?php echo __(' User Id'); ?></th>
+		<th><?php echo __(' Article Id'); ?></th>
+		<th><?php echo __(' Created'); ?></th>
+		<th><?php echo __(' Body'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($article['Comment'] as $comment): ?>
@@ -133,9 +133,9 @@
 			<td><?php echo $rating['user_id']; ?></td>
 			<td><?php echo $rating['value']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'ratings', 'action' => 'view', $rating['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'ratings', 'action' => 'edit', $rating['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'ratings', 'action' => 'delete', $rating['id']), null, __('Are you sure you want to delete # %s?', $rating['id'])); ?>
+				<?php echo $this->Html->link(__(' View '), array('controller' => 'ratings', 'action' => 'view', $rating['id'])); ?>
+				<?php echo $this->Html->link(__(' Edit '), array('controller' => 'ratings', 'action' => 'edit', $rating['id'])); ?>
+				<?php echo $this->Form->postLink(__(' Delete '), array('controller' => 'ratings', 'action' => 'delete', $rating['id']), null, __('Are you sure you want to delete # %s?', $rating['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -151,7 +151,7 @@
 <div class="related">
 	<h3><?php echo __('Related Categories'); ?></h3>
 	<?php if (!empty($article['Category'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
+	<table cellpadding = "5" cellspacing = "5">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Name'); ?></th>

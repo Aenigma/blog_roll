@@ -1,6 +1,15 @@
+<div class= "row">
+
 <div class="users view">
 <h2><?php echo __('User'); ?></h2>
 <?php $userProfile = $user['UserProfile']; ?>
+	
+	
+	<div class="col-md-4 pull-right">
+	
+	<img src="holder.js/250x250">
+	
+	
 	<dl class="dl-horizontal">
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
@@ -12,16 +21,22 @@
 			<?php echo h($user['User']['username']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Password'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['password']); ?>
-			&nbsp;
-		</dd>
+		
+		
+		
+		
 		<dt><?php echo __('Email'); ?></dt>
 		<dd>
+		    
+		    <a data-toggle="modal" href="#emailmodal"> 
+		
 			<?php echo h($user['User']['email']); ?>
+			</a>
 			&nbsp;
-		</dd>
+		</dd> 
+		
+		
+		
 		<dt><?php echo __('Is Author'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['is_author']); ?>
@@ -78,9 +93,13 @@
 		
 		
 	</dl>
+	</div>
+	
 </div>
 
-<div class="related">
+<div class="related col-md-8">
+
+
 	<h3><?php echo __('Related Articles'); ?></h3>
 	<?php if (!empty($user['Article'])): ?>
 	<table class='table' cellpadding = "0" cellspacing = "0">
@@ -110,5 +129,50 @@
 <?php endif; ?>
 
 </div>
+
+</div>
+
+<div class="modal fade" id="emailmodal" tabindex="-1" role="dialog" aria-labelledby="emailmodal" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> </button>
+<h4 class="modal-title">Send email</h4>
+
+</div>
+<div class="modal-body">
+
+
+<div class="form-group">
+<label for="email-address">Address</label>
+<input class="form-control" id="email-address" placeholder="email-address" type="text">
+</div>
+<div class="form-group">
+<label for="email-subject">Email-subject</label>
+<input class="form-control" id="email-subject" placeholder="email-subject" type="text">
+</div>
+<div class="form-group">
+<label for="email-body">Body</label>
+<textarea class="form-control" id="email-body"> 
+</textarea>
+</div>
+
+
+
+<div class="modal-footer">
+
+<button type="button" class="btn btn-primary"> Submit </button>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
 
 

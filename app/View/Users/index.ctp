@@ -48,8 +48,8 @@
 	</tr>
   <?php endforeach; ?>
   </table>
-	<div class="paging">
-  <ul class='pagination centered'>
+	<div class='paging centered'>
+  <ul class='pagination'>
     <li>
     <?php echo $this->Paginator->prev('&laquo;',
       array('escape'=>false, 'tag'=>false),

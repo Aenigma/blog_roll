@@ -10,3 +10,9 @@
 .downvote {
 	color: blue;
 }
+.truncate-txt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 15ch;
+}

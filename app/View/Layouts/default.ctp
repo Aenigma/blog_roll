@@ -25,13 +25,10 @@
             <span class='icon-bar'></span>
             <span class='icon-bar'></span>
           </button>
-          <a class='navbar-brand' href='#'>Blog Title</a>
+          <?php echo $this->Html->link('Blog So Hard','/',array('class'=>'navbar-brand blogroll-brand')); ?>
         </div>
         <div class='collapse navbar-collapse'>
           <ul class='nav navbar-nav'>
-            <li>
-              <?php echo $this->Html->link('Home','/');?>
-            </li>
             <li class='dropdown'>
               <?php
                 echo $this->Html->link('Navigation' . $this->Html->tag('b', '',array('class'=>'caret')), '#',array('escape'=>false,'data-toggle'=>'dropdown'))

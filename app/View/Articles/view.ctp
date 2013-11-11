@@ -33,6 +33,20 @@
 	<? endforeach; ?>
 	
 </div>
+<div class="article-extras">
+              <span class="glyphicon glyphicon-chevron-up upvote"></span>
+              <span class="badge">10</span>
+              <span class="glyphicon glyphicon-chevron-down"></span>
+              <button class="btn btn-primary btn-sm" type="button">Comment</button>
+              <a class="btn btn-primary btn-sm" href="articleedit.html">Edit</a>
+              <div class="article-extras-social pull-right">
+                <button class="btn btn-xs" type="button">Facebook</button>
+                <button class="btn btn-xs" type="button">Google+</button>
+                <button class="btn btn-xs" type="button">Twitter</button>
+              </div>
+            </div>
+
+
 	&nbsp;
 		
 

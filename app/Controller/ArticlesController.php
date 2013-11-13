@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('CakeTime', 'Utility');
 /**
  * Articles Controller
  *
@@ -15,6 +16,8 @@ class ArticlesController extends AppController {
  */
 	public $components = array('Paginator');
 	
+	public $paginate = array('limit' => 2);
+	
 	public function beforeFilter() {
 		$this->Auth->allow('index', 'view');
 		return parent::beforeFilter();
@@ -28,7 +31,6 @@ class ArticlesController extends AppController {
 
 	public function index() {
 		$this->Auth->allow(); 
-		$this->Article->recursive = 0;
 		$this->set('articles', $this->Paginator->paginate());
 	}
 

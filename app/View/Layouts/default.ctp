@@ -9,7 +9,32 @@
     <script src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
     <script src='//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/holder/2.0/holder.min.js'></script>
-	<title>Blog So Hard</title>
+    <!-- Start Social Media Libraries -->
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/platform.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+      !function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    </script>
+    <?php if(isset($viewTitle)): ?>
+    <title>Blog So Hard | <?php echo $viewTitle; ?></title>
+    <?php else: ?>
+    <title>Blog So Hard</title>
+    <?php endif ?>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js'></script>
@@ -17,6 +42,7 @@
     <![endif]-->
   </head>
   <body class='floating-body'>
+    <div id="fb-root"></div>
     <div class='navbar navbar-default navbar-fixed-top'>
       <div class='container'>
         <div class='navbar-header'>
@@ -32,8 +58,8 @@
             <li class='dropdown'>
               <?php
                 echo $this->Html->link('Navigation' . $this->Html->tag('b', '',array('class'=>'caret')), '#',array('escape'=>false,'data-toggle'=>'dropdown'))
-              ?>
-              <ul class='dropdown-menu'>
+                ?>
+                <ul class='dropdown-menu'>
                 <li>
                 <?php
                   echo $this->Html->link('Articles by Author...','/articles/index/sort:author/direction;asc');
@@ -51,6 +77,8 @@
               </ul>
             </li>
           </ul>
+          <?php $is_loggedin = AuthComponent::user(); ?>
+          <?php if(empty($is_loggedin)): ?>
           <ul class='nav navbar-nav navbar-right'>
             <li>
               <a class='btn' data-toggle='modal' href='#signin'>
@@ -58,6 +86,43 @@
               </a>
             </li>
           </ul>
+          <?php else: ?>
+          <ul class='nav navbar-nav navbar-right'>
+            <li class='dropdown'>
+              <?php
+                  $user_profile = AuthComponent::user('UserProfile');
+                  $name = AuthComponent::user('username');
+                  if ($user_profile['first_name'] != null && $user_profile['last_name'] != null)
+                    $name = $user_profile['first_name'] . ' ' . $user_profile['last_name'];
+                  echo $this->Html->link($name,
+                    '#',array('data-toggle'=>'dropdown'));
+                ?>
+                <ul class='dropdown-menu'>
+                  <li>
+                    <?php
+                    echo $this->Html->link(
+                      'User Profile', 
+                      array(
+                        'controller'=>'users',
+                        'action'=>'view',
+                        AuthComponent::user('id')
+                      ));
+                    ?>
+                  </li>
+                  <li>
+                  <?php
+                  echo $this->Html->link(
+                    'Log Out',
+                    array(
+                      'controller'=>'users',
+                      'action'=>'logout'
+                    ));
+                  ?>
+                  </li>
+                </ul>
+            </li>
+          </ul>
+          <?php endif; ?>
         </div>
       </div>
     </div>
@@ -78,7 +143,7 @@
             <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>&times;</button>
             <h4 class='modal-title'>Sign In</h4>
           </div>
-          <?php echo $this->Form->create("SignIn", array("url" => array('controller' => 'users', 'action' => 'create'), "role" => 'form')); ?>
+          <?php echo $this->Form->create('User', array("url" => array('controller' => 'users', 'action' => 'login'), "role" => 'form')); ?>
             <div class='modal-body'>
               <div class='form-group'>
                 <?php echo $this->Form->input('username', array('class' => 'form-control','div' => false, 'label' => 'Username','placeholder'=>'Your username')); ?>
@@ -106,7 +171,7 @@
 
           <div class='modal-body'>
             <?php //echo $this->Form->input("User", array("role" => 'form')); ?>
-            <?php echo $this->Form->create("SignUp", array("url" => array('controller' => 'users', 'action' => 'login'), "role" => 'form')); ?>
+            <?php echo $this->Form->create("User", array("url" => array('controller' => 'users', 'action' => 'login'), "role" => 'form')); ?>
               <div class='form-group'>
                 <?php echo $this->Form->input('username', array('class' => 'form-control', 'div' => false, 'label' => 'Username','placeholder' => 'Your Username')); ?>
               </div>

@@ -4,11 +4,26 @@
 .centered {
   text-align: center;
 }
-.upvote {
-	color: orange;
+div.vote-info.upvote > .vote-icon-up {
+  color: orange;
 }
-.downvote {
-	color: blue;
+div.vote-info.downvote > .vote-icon-down {
+  color: blue;
+}
+.votes-positive {
+  background-color: green;
+}
+.votes-negative {
+  background-color: red;
+}
+.article {
+  margin-top: 5px;
+}
+.checked.vote-icon-up {
+  color: orange;
+}
+.checked.vote-icon-down {
+  color: blue;
 }
 .truncate-txt {
   overflow: hidden;
@@ -21,4 +36,10 @@
 }
 .author:before {
   content: "by";
+}
+.posted-date{
+  font-size: small;
+}
+.posted-date:before {
+  content: "Posted on "
 }

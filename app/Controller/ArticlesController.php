@@ -45,9 +45,20 @@ class ArticlesController extends AppController {
 		if (!$this->Article->exists($id)) {
 			throw new NotFoundException(__('Invalid article'));
 		}
-		$options = array('conditions' => array('Article.' . $this->Article->primaryKey => $id));
+		$options = array(
+			'conditions' => array(
+				'Article.' . $this->Article->primaryKey => $id
+			),
+			'contain' => array(
+				'ArticleImage',
+				'Comment' => array('User' => array('UserProfile')),
+				'Rating',
+				'Category',
+				'User' => array('UserProfile')
+			)
+		);	
 		$this->set('article', $this->Article->find('first', $options));
-	debug($this->Article->find('first', $options));
+    $this->set('viewTitle', $this->Article->field('title',array('Article.' . $this->Article->primaryKey => $id)));
 	}
 
 /**

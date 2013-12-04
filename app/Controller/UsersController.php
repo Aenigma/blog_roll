@@ -27,16 +27,17 @@ class UsersController extends AppController {
 	public function login() {
 		if($this->request->is('post')) {
 			if($this->Auth->login()) {
-				return $this->redirect($this->Auth->redirect());
+				$this->redirect($this->Auth->redirect());
+			} else {
+				$this->Session->setFlash(__('Your username or password was incorrect.'));
+				$this->redirect(array('controller' => 'articles', 'action' => 'index'));
 			}
-			$this->Session->setFlash(__('Your username or password was incorrect.'));
 		}
 	}
 	
 	public function logout() {
-		$this->Auth-logout();
+		$this->Auth->logout();
 		$this->redirect(array('controller' => 'articles', 'action' => 'index'));
-		
 	}
 
 /**
@@ -62,8 +63,23 @@ class UsersController extends AppController {
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
-		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+		$options = array(
+			'conditions' => array('User.' . $this->User->primaryKey => $id),
+			'contain' => array('UserProfile')
+		);
 		$this->set('user', $this->User->find('first', $options));
+		
+		$this->Paginator->settings = array(
+			'conditions' => array('Article.user_id' => $id),
+			'contain' => array(
+				'ArticleImage',
+				'Comment' => array('User' => array('UserProfile')),
+				'Rating',
+				'Category',
+				'User' => array('UserProfile')
+			)
+		);		
+		$this->set('articles', $this->Paginator->paginate('Article'));
 	}
 
 /**

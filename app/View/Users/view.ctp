@@ -1,37 +1,13 @@
-
 <div class="users view">
-<h2><?php echo __('User'); ?></h2>
-<?php $userProfile = $user['UserProfile']; ?>
-	
+<h1><?php echo __($user['UserProfile']['first_name'] . ' ' . $user['UserProfile']['last_name']); ?></h1>
   <div class= "row">
     <div class="related col-md-8">
-      <h3><?php echo __('Related Articles'); ?></h3>
-      <?php if (!empty($user['Article'])): ?>
-      <table class='table'>
-      <tr>
-        <th><?php echo __('Id'); ?></th>
-        <th><?php echo __('User Id'); ?></th>
-        <th><?php echo __('Created'); ?></th>
-        <th><?php echo __('Title'); ?></th>
-        <th><?php echo __('Body'); ?></th>
-        <th class="actions"><?php echo __('Actions'); ?></th>
-      </tr>
-      <?php foreach ($user['Article'] as $article): ?>
-        <tr>
-          <td><?php echo $article['id']; ?></td>
-          <td><?php echo $article['user_id']; ?></td>
-          <td><?php echo $article['created']; ?></td>
-          <td><?php echo $article['title']; ?></td>
-          <td><p class="truncate-txt"><?php echo $article['body']; ?></p></td>
-          <td class="actions">
-            <?php echo $this->Html->link(__('View'), array('controller' => 'articles', 'action' => 'view', $article['id']),array('class'=>'btn btn-primary btn-xs')); ?>
-            <?php echo $this->Html->link(__('Edit'), array('controller' => 'articles', 'action' => 'edit', $article['id']),array('class'=>'btn btn-primary btn-xs')); ?>
-            <?php echo $this->Form->postLink(__('Delete'), array('controller' => 'articles', 'action' => 'delete', $article['id']), array('class'=>'btn btn-primary btn-xs'), __('Are you sure you want to delete # %s?', $article['id'])); ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-      </table>
-    <?php endif; ?>
+		<?php if (!empty($articles)): ?>
+			<?php foreach($articles as $article): ?>
+				<?php echo $this->element('article', array('article' => $article, 'clip' => true, 'show_comments' => false)); ?>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<?php echo $this->element('pagination'); ?>
     </div>
     <div class="col-md-4">
       <div class="centered">
@@ -39,66 +15,45 @@
       </div>
       <div class="pull-left">
         <dl class="dl-horizontal">
-          <dt><?php echo __('Id'); ?></dt>
-          <dd>
-            <?php echo h($user['User']['id']); ?>
-            &nbsp;
-          </dd>
-          <dt><?php echo __('Username'); ?></dt>
-          <dd>
-            <?php echo h($user['User']['username']); ?>
-            &nbsp;
-          </dd>
           <dt><?php echo __('Email'); ?></dt>
-          <dd>
-            <?php /* For some reason having the closing a tag and the
-            nonbreaking space on separate lines breaks the layout.*/ ?>
-            <a data-toggle="modal" href="#emailmodal"><?php echo h($user['User']['email']); ?></a>&nbsp;
-          </dd> 
-          <dt><?php echo __('Is Author'); ?></dt>
-          <dd>
-            <?php echo h($user['User']['is_author']); ?>
-            &nbsp;
-          </dd>
-          <dt><?php echo __('Created'); ?></dt>
-          <dd>
-            <?php echo h($user['User']['created']); ?>
+		  <dd>
+             <a data-toggle="modal" href="#emailmodal"><?php echo h($user['User']['email']); ?></a>&nbsp;
             &nbsp;			
           </dd>
-          <dt><?php echo __('Firstname'); ?></dt>
+		  <dt><?php echo __('First Name'); ?></dt>
           <dd>
-            <?php echo h($userProfile['first_name']); ?>
+            <?php echo h($user['UserProfile']['first_name']); ?>
             &nbsp;			
           </dd>
-          <dt><?php echo __('Lastname'); ?></dt>
+          <dt><?php echo __('Last Name'); ?></dt>
           <dd>
-            <?php echo h($userProfile['last_name']); ?>
+            <?php echo h($user['UserProfile']['last_name']); ?>
             &nbsp;			
           </dd>
-          <dt><?php echo __('birthdate'); ?></dt>
+          <dt><?php echo __('Birthdate'); ?></dt>
           <dd>
-            <?php echo h($userProfile['birthdate']); ?>
+            <?php echo h($user['UserProfile']['birthdate']); ?>
             &nbsp;			
           </dd>
-          <dt><?php echo __('about_me'); ?></dt>
+          <dt><?php echo __('Home Page'); ?></dt>
           <dd>
-            <?php echo h($userProfile['about_me']); ?>
+            <?php echo h($user['UserProfile']['homepage']); ?>
             &nbsp;			
           </dd>
-          <dt><?php echo __('homepage'); ?></dt>
+          <dt><?php echo __('Facebook'); ?></dt>
           <dd>
-            <?php echo h($userProfile['homepage']); ?>
-            &nbsp;			
-          </dd>
-          <dt><?php echo __('facebook'); ?></dt>
-          <dd>
-            <?php echo h($userProfile['facebook']); ?>
+            <?php echo h($user['UserProfile']['facebook']); ?>
             &nbsp;			
           </dd>
           
-          <dt><?php echo __('twitter'); ?></dt>
+          <dt><?php echo __('Twitter'); ?></dt>
           <dd>
-            <?php echo h($userProfile['twitter']); ?>
+            <?php echo h($user['UserProfile']['twitter']); ?>
+            &nbsp;			
+          </dd>
+		   <dt><?php echo __('About Me'); ?></dt>
+          <dd>
+            <?php echo h($user['UserProfile']['about_me']); ?>
             &nbsp;			
           </dd>
         </dl>

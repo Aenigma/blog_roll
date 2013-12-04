@@ -36,8 +36,23 @@ class CategoriesController extends AppController {
 		if (!$this->Category->exists($id)) {
 			throw new NotFoundException(__('Invalid category'));
 		}
-		$options = array('conditions' => array('Category.' . $this->Category->primaryKey => $id));
+		$options = array(
+			'conditions' => array('Category.' . $this->Category->primaryKey => $id),
+			'contain' => false
+		);
 		$this->set('category', $this->Category->find('first', $options));
+		
+		$this->Paginator->settings = array(
+			'conditions' => array('Article.user_id' => $id),
+			'contain' => array(
+				'ArticleImage',
+				'Comment' => array('User' => array('UserProfile')),
+				'Rating',
+				'Category',
+				'User' => array('UserProfile')
+			)
+		);		
+		$this->set('articles', $this->Paginator->paginate('Article'));
 	}
 
 /**

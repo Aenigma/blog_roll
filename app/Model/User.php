@@ -136,7 +136,6 @@ class User extends AppModel {
 				'conditions' => array('User.id' => $this->data['User']['id']),
 				'fields' => array('User.password')
 			));
-			$this->log($user);
 			if($user['User']['password'] != $this->data['User']['password']) {
 				$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
 			}

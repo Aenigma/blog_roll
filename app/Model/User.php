@@ -40,7 +40,7 @@ class User extends AppModel {
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'email' => array(
@@ -129,17 +129,25 @@ class User extends AppModel {
 			'counterQuery' => ''
 		)
 	); 
-	
+		
 	public function beforeSave($options = array()) {
 		if(!empty($this->data['User']['password'])) {
-			$user = $this->find('first', array(
-				'conditions' => array('User.id' => $this->data['User']['id']),
-				'fields' => array('User.password')
-			));
-			if($user['User']['password'] != $this->data['User']['password']) {
-				$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+			$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+		} else {
+			if(isset($this->data['User']['password'])) {
+				unset($this->data['User']['password']);
 			}
-		}		
+		}
 		return parent::beforeSave($options); 
+	}
+	
+	public function afterSave($created, $options = array()) {
+		if(!empty($created)) {
+			if(!$this->UserProfile->exists($this->id)) {
+				$this->UserProfile->create(array('user_id' => $this->id));
+				$this->UserProfile->save();
+			}
+		}
+		return parent::afterSave($create, $options); 
 	}
 }

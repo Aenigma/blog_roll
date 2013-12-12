@@ -16,7 +16,10 @@ class ArticlesController extends AppController {
  */
 	public $components = array('Paginator');
 	
-	public $paginate = array('limit' => 2);
+	public $paginate = array('limit' => 5, 'order' => array(
+            'Article.created' => 'DESC'
+        )
+	);
 	
 	public function beforeFilter() {
 		$this->Auth->allow('index', 'view');
@@ -29,9 +32,10 @@ class ArticlesController extends AppController {
  */
 		
 
-	public function index() {
+	public function index() {	
 		$this->Auth->allow(); 
-		$this->set('articles', $this->Paginator->paginate());
+		$this->Paginator->settings = $this->paginate;
+		$this->set('articles', $this->Paginator->paginate('Article'));
 	}
 
 /**
@@ -58,7 +62,7 @@ class ArticlesController extends AppController {
 			)
 		);	
 		$this->set('article', $this->Article->find('first', $options));
-    $this->set('viewTitle', $this->Article->field('title',array('Article.' . $this->Article->primaryKey => $id)));
+		$this->set('viewTitle', $this->Article->field('title',array('Article.' . $this->Article->primaryKey => $id)));
 	}
 
 /**
@@ -67,18 +71,23 @@ class ArticlesController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->Article->create();
-			if ($this->Article->save($this->request->data)) {
-				$this->Session->setFlash(__('The article has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The article could not be saved. Please, try again.'));
+		if($this->Auth->user('is_author')) {
+			if ($this->request->is('post')) {
+				$this->Article->create(array('user_id' => $this->Auth->user('id')));
+				if ($this->Article->save($this->request->data)) {
+					$this->Session->setFlash(__('The article has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The article could not be saved. Please, try again.'));
+				}
 			}
+			$users = $this->Article->User->find('list');
+			$categories = $this->Article->Category->find('list');
+			$this->set(compact('users', 'categories'));
+		} else {
+			$this->Session->setFlash(__('You Cannot Access this Area')); 
+			$this->redirect(array('action' => 'index')); 
 		}
-		$users = $this->Article->User->find('list');
-		$categories = $this->Article->Category->find('list');
-		$this->set(compact('users', 'categories'));
 	}
 
 /**
@@ -89,23 +98,28 @@ class ArticlesController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->Article->exists($id)) {
-			throw new NotFoundException(__('Invalid article'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Article->save($this->request->data)) {
-				$this->Session->setFlash(__('The article has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The article could not be saved. Please, try again.'));
+		if($this->Auth->user('is_author')) {
+			if (!$this->Article->exists($id)) {
+				throw new NotFoundException(__('Invalid article'));
 			}
+			if ($this->request->is(array('post', 'put'))) {
+				if ($this->Article->save($this->request->data)) {
+					$this->Session->setFlash(__('The article has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The article could not be saved. Please, try again.'));
+				}
+			} else {
+				$options = array('conditions' => array('Article.' . $this->Article->primaryKey => $id));
+				$this->request->data = $this->Article->find('first', $options);
+			}
+			$users = $this->Article->User->find('list');
+			$categories = $this->Article->Category->find('list');
+			$this->set(compact('users', 'categories'));
 		} else {
-			$options = array('conditions' => array('Article.' . $this->Article->primaryKey => $id));
-			$this->request->data = $this->Article->find('first', $options);
+			$this->Session->setFlash(__('You Cannot Access this Area')); 
+			$this->redirect(array('action' => 'index')); 
 		}
-		$users = $this->Article->User->find('list');
-		$categories = $this->Article->Category->find('list');
-		$this->set(compact('users', 'categories'));
 	}
 
 /**
@@ -116,17 +130,22 @@ class ArticlesController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->Article->id = $id;
-		if (!$this->Article->exists()) {
-			throw new NotFoundException(__('Invalid article'));
-		}
-		$this->request->onlyAllow('post', 'delete');
-		if ($this->Article->delete()) {
-			$this->Session->setFlash(__('The article has been deleted.'));
+		if($this->Auth->user('is_author')) {
+			$this->Article->id = $id;
+			if (!$this->Article->exists()) {
+				throw new NotFoundException(__('Invalid article'));
+			}
+			$this->request->onlyAllow('post', 'delete');
+			if ($this->Article->delete()) {
+				$this->Session->setFlash(__('The article has been deleted.'));
+			} else {
+				$this->Session->setFlash(__('The article could not be deleted. Please, try again.'));
+			}
+			return $this->redirect(array('action' => 'index'));
 		} else {
-			$this->Session->setFlash(__('The article could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('You Cannot Access this Area')); 
+			$this->redirect(array('action' => 'index')); 
 		}
-		return $this->redirect(array('action' => 'index'));
 	}
 
 }

@@ -1,32 +1,17 @@
-<div class="articles form">
-<?php echo $this->Form->create('Article'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Article'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('title');
-		echo $this->Form->input('body');
-		echo $this->Form->input('Category');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Article.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Article.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Articles'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Article Images'), array('controller' => 'article_images', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Article Image'), array('controller' => 'article_images', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comments'), array('controller' => 'comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ratings'), array('controller' => 'ratings', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Rating'), array('controller' => 'ratings', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Categories'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Category'), array('controller' => 'categories', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<h1>Editing: <?php echo $this->request->data['Article']['title']; ?></h1>
+<?php echo $this->Form->create('Article', array('inputDefaults' => array('class' => 'form-control'))); ?>
+	<?php echo $this->Form->input('id'); ?>	
+	<?php echo $this->Form->input('title', array('div' => array('class' => 'form-group'))); ?>
+	<?php echo $this->Form->input('Category', array('div' => array('class' => 'form-group'))); ?>
+	<?php echo $this->Form->input('body', array('type' => 'textarea', 'div' => array('class' => 'form-group'))); ?>
+	<?php echo $this->Form->submit('Submit', array('class' => 'btn btn-default')); ?>
+<?php echo $this->Form->end(); ?>
+<?php
+  $article = $this->request->data;
+  echo $this->Form->postLink(__('Delete'),
+    array('action' => 'delete',  $article['Article']['id']),
+    array('class' => 'btn btn-default'),
+    __('Are you sure you want to delete # %s?',
+    $article['Article']['id'])
+  );
+?>

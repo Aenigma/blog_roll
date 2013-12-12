@@ -21,7 +21,7 @@ class UsersController extends AppController {
 	public $components = array('Auth', 'Paginator');
 	
 	public $paginate = array(
-		'limit' => 2
+		'limit' => 10
 	);
 	
 	public function login() {
@@ -92,7 +92,7 @@ class UsersController extends AppController {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
@@ -107,19 +107,24 @@ class UsersController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->User->exists($id)) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+		if($this->Auth->user('is_author')) {
+			if (!$this->User->exists($id)) {
+				throw new NotFoundException(__('Invalid user'));
+			}
+			if ($this->request->is(array('post', 'put'))) {
+				if ($this->User->save($this->request->data)) {
+					$this->Session->setFlash(__('The user has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+				}
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+				$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+				$this->request->data = $this->User->find('first', $options);
 			}
 		} else {
-			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-			$this->request->data = $this->User->find('first', $options);
+			$this->Session->setFlash(__('You Cannot Access this Area')); 
+			$this->redirect(array('action' => 'index')); 
 		}
 	}
 
@@ -131,16 +136,21 @@ class UsersController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$this->request->onlyAllow('post', 'delete');
-		if ($this->User->delete()) {
-			$this->Session->setFlash(__('The user has been deleted.'));
+		if($this->Auth->user('is_author')) {
+			$this->User->id = $id;
+			if (!$this->User->exists()) {
+				throw new NotFoundException(__('Invalid user'));
+			}
+			$this->request->onlyAllow('post', 'delete');
+			if ($this->User->delete()) {
+				$this->Session->setFlash(__('The user has been deleted.'));
+			} else {
+				$this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
+			}
+			return $this->redirect(array('action' => 'index'));
 		} else {
-			$this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('You Cannot Access this Area')); 
+			$this->redirect(array('action' => 'index')); 
 		}
-		return $this->redirect(array('action' => 'index'));
 	}
 }

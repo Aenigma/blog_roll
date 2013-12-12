@@ -19,6 +19,9 @@ div.vote-info.downvote > .vote-icon-down {
 .article {
   margin-top: 5px;
 }
+.vote-icon {
+  cursor: pointer;
+}
 .checked.vote-icon-up {
   color: orange;
 }

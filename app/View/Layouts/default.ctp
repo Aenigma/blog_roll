@@ -9,6 +9,10 @@
     <script src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
     <script src='//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/holder/2.0/holder.min.js'></script>
+    <?php
+    // JS hosted locally
+    echo $this->Html->script('voting');
+    ?>
     <!-- Start Social Media Libraries -->
     <script type="text/javascript">
       (function() {
@@ -57,8 +61,8 @@
           <ul class='nav navbar-nav'>
             <li class='dropdown'>
               <?php
-                echo $this->Html->link('Navigation' . $this->Html->tag('b', '',array('class'=>'caret')), '#',array('escape'=>false,'data-toggle'=>'dropdown'))
-                ?>
+              echo $this->Html->link('Navigation' . $this->Html->tag('b', '',array('class'=>'caret')), '#',array('escape'=>false,'data-toggle'=>'dropdown'));
+              ?>
                 <ul class='dropdown-menu'>
                 <li>
                 <?php
@@ -76,6 +80,22 @@
                 </li>
               </ul>
             </li>
+            <?php if(AuthComponent::user('is_author')): ?>
+              <li class='dropdown'>
+                <?php
+                  echo $this->Html->link('Admin' .
+                    $this->Html->tag('b', '',array('class'=>'caret')),
+                    '#',array('escape'=>false,'data-toggle'=>'dropdown'));
+                ?>
+                <ul class='dropdown-menu'>
+                  <li>
+                  <?php
+                    echo $this->Html->link('Create an article...',array('controller'=>'articles','action'=>'add'));
+                  ?>
+                  </li>
+                </ul>
+              </li>
+            <?php endif ?>
           </ul>
           <?php $is_loggedin = AuthComponent::user(); ?>
           <?php if(empty($is_loggedin)): ?>

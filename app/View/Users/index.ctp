@@ -19,29 +19,17 @@
 		<td class="actions">
       <ul class='list-inline'>
         <li>
-        <?php
-          echo $this->Html->link(__('View'),
-            array('action' => 'view',
-            $user['User']['id']),
-            array('class' => 'btn btn-primary btn-xs'));
-        ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $user['User']['id']),array('class' => 'btn btn-primary btn-xs')); ?>
         </li>
-        <li>
-        <?php
-          echo $this->Html->link(__('Edit'),
-            array('action' => 'edit',
-            $user['User']['id']),
-            array('class' => 'btn btn-primary btn-xs'));
-        ?>
+		<li>
+			<?php if(AuthComponent::user('is_author')): ?>
+				<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $user['User']['id']),array('class' => 'btn btn-primary btn-xs')); ?>
+			<?php endif; ?>
         </li>
-        <li>
-        <?php
-          echo $this->Form->postLink(__('Delete'),
-            array('action' => 'delete',
-            $user['User']['id']), array('class' => 'btn btn-primary btn-xs'),
-            __('Are you sure you want to delete # %s?',
-            $user['User']['id']));
-        ?>
+		<li>
+			<?php if(AuthComponent::user('is_author')): ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete',  $user['User']['id']), array('class' => 'btn btn-primary btn-xs'), __('Are you sure you want to delete # %s?',  $user['User']['id'])); ?>
+			<?php endif; ?>
         </li>
       </ul>
     </td>
@@ -49,7 +37,3 @@
   <?php endforeach; ?>
   </table>
 <?php echo $this->element('pagination'); ?>
-<div class="actions">
-	<h1><?php echo __('Actions'); ?></h1>
-  <?php echo $this->Html->link(__('New User'), array('action' => 'add'),array('class'=>'btn btn-primary')); ?>
-</div>

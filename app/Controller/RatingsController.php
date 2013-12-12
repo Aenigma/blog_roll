@@ -10,26 +10,87 @@ App::uses('AppController', 'Controller');
  
 class RatingsController extends AppController {
 
-	public function upvote() {
-		if ($this->request->is('post')) {
-			$this->Rating->create();
-			if ($this->Rating->save($this->request->data)) {
-				$this->Session->setFlash(__('The rating has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+	public $layout = 'ajax';
+	public $autoRender = false;
+	
+
+	public function upvote($article_id = null) { 
+		if($this->Rating->Article->exists($article_id)) { 
+			if ($this->request->is('post') && $this->request->is('ajax')) {
+				$exists = $this->Rating->find('list', array(
+					'conditions' => array(
+						'Rating.article_id' => $article_id,
+						'Rating.user_id' => AuthComponent::user('id')
+					)
+				));
+
+				if(empty($exists)) {
+					$this->Rating->create();
+					
+					$rating = array(
+						'article_id' => $article_id, 
+						'user_id' => AuthComponent::user('id'), 
+						'value' => true
+					);
+					
+					if ($this->Rating->save($rating)) {
+						$this->set('result', true);
+						$this->set('error', false);
+					} else {
+						$this->set('result', false);
+						$this->set('error', 'Could not Create the Rating');
+					}
+				} else {
+					$this->set('result', false);
+					$this->set('error', "You've already voted!");
+				}
+				$this->set('_serialize', array('result', 'error')); 
+				$this->render(); 
 			} else {
-				$this->Session->setFlash(__('The rating could not be saved. Please, try again.'));
+				throw new BadRequestException('Not Ajax!');
 			}
+		} else {
+			throw new NotFoundException('Not an Article!');
 		}
-		$articles = $this->Rating->Article->find('list');
-		$users = $this->Rating->User->find('list');
-		$this->set(compact('articles', 'users'));
 	}
 	
 	public function downvote($article_id = null) {
-		if(!empty($article_id)) {
-			
+		if($this->Rating->Article->exists($article_id)) { 
+			if ($this->request->is('post') && $this->request->is('ajax')) {
+				$exists = $this->Rating->find('list', array(
+					'conditions' => array(
+						'Rating.article_id' => $article_id,
+						'Rating.user_id' => AuthComponent::user('id')
+					)
+				));
+
+				if(empty($exists)) {
+					$this->Rating->create();
+					
+					$rating = array(
+						'article_id' => $article_id, 
+						'user_id' => AuthComponent::user('id'), 
+						'value' => false
+					);
+					
+					if ($this->Rating->save($rating)) {
+						$this->set('result', true);
+						$this->set('error', false);
+					} else {
+						$this->set('result', false);
+						$this->set('error', 'Could not Create the Rating');
+					}
+				} else {
+					$this->set('result', false);
+					$this->set('error', "You've already voted!");
+				}
+				$this->set('_serialize', array('result', 'error')); 
+				$this->render(); 
+			} else {
+				throw new BadRequestException('Not Ajax!');
+			}
 		} else {
-			throw new BadRequestException('Need an Article ID');
+			throw new NotFoundException('Not an Article!');
 		}
 	}
 }

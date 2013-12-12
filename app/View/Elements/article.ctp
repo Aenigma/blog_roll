@@ -1,4 +1,3 @@
-<!-- Requires the $article variable. -->
 <?php $user = AuthComponent::user('username'); ?>
 <article>
 	<section class='article-metadata'>
@@ -37,7 +36,34 @@
 	<hr />
 	<div class='article-extras'>
 		<?php if(!empty($user)): ?>
-			<?php echo $this->Html->link('', array('controller' => 'ratings', 'action' => 'upvote', $article['Article']['id']), array('class' => 'glyphicon glyphicon-chevron-up upvote')); ?>
+      <?php
+        $classes = array();
+        // Icon standard
+        array_push($classes, "glyphicon", "vote-icon");
+        // Up icon standard
+        array_push($classes, "glyphicon-chevron-up", "vote-icon-up");
+        // Enter code here to check whether or not to upvote
+        // array_push($classes,"checked");
+        $classes = join($classes," ");
+        echo $this->Html->tag('span','',array(
+          'class' => $classes,
+          'data-url' => $this->Html->url(array(
+            'controller' => 'ratings',
+            'action' => 'upvote', $article['Article']['id'],
+            'ext' => 'json')))
+          );
+        /*
+        echo $this->Html->link('',
+          array('controller' => 'ratings', 'action' => 'upvote', $article['Article']['id']),
+          array(
+            'class' => $classes,
+            'data-url' => $this->Html->url(
+              array(
+              'controller' => 'ratings',
+              'action' => 'upvote',$article['Article']['id'])
+          )));
+         */
+      ?>
 		<?php endif; ?>
 		
 		<?php $rating = 0; ?>
@@ -50,19 +76,42 @@
 			<?php endif; ?>
 		<?php endforeach; ?>
 		
-		<span class='badge <?php
-                  if ($rating > 0)
+		<span class='badge votes-count <?php
+                  if ($rating > 0) {
                     echo 'votes-positive';
-                  else if ($ratings < 0)
+                  } else if ($rating < 0) {
                     echo 'votes-negative';
-                  else
+                  } else {
                     echo 'votes-zero';
+                  }
                   ?>'>
 			  <?php echo $rating;?>
 		</span>
 		
 		<?php if(!empty($user)): ?>
-			<?php echo $this->Html->link('', array('controller' => 'ratings', 'action' => 'downvote', $article['Article']['id']), array('class' => 'glyphicon glyphicon-chevron-down')); ?>
+    <?php
+        $classes = array();
+        // Icon standard
+        array_push($classes, "glyphicon", "vote-icon");
+        // Up icon standard
+        array_push($classes, "glyphicon-chevron-down", "vote-icon-down");
+        // Enter code here to check whether or not to upvote
+        // array_push($classes,"checked");
+        $classes = join($classes," ");
+        echo $this->Html->tag('span','',array(
+          'class' => $classes,
+          'data-url' => $this->Html->url(array(
+            'controller' => 'ratings',
+            'action' => 'downvote', $article['Article']['id'],
+            'ext' => 'json')))
+          );
+        /*
+        echo $this->Html->link('',
+        array('controller' => 'ratings', 'action' => 'downvote', $article['Article']['id']),
+        array('class' => 'glyphicon glyphicon-chevron-down vote-icon vote-icon-down',
+        'data-url' => $this->Html->url(array('controller' => 'ratings', 'action' => 'downvote',$article['Article']['id']))));
+         */
+      ?>
 		<?php endif; ?>
 		
 		<?php if(!empty($user)): ?>

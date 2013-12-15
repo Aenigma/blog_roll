@@ -26,7 +26,7 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1434525856763811";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
@@ -169,7 +169,7 @@
                 <?php echo $this->Form->input('username', array('class' => 'form-control','div' => false, 'label' => 'Username','placeholder'=>'Your username')); ?>
               </div>
               <div class='form-group'>
-                <?php echo $this->Form->input('password', array('class' => 'form-control', 'div' => false, 'label' => "Password")); ?>
+                <?php echo $this->Form->input('password', array('class' => 'form-control', 'div' => false, 'label' => 'Password', 'placeholder'=>'Your password')); ?>
               </div>
             </div>
             <div class='modal-footer'>
@@ -191,7 +191,7 @@
 
           <div class='modal-body'>
             <?php //echo $this->Form->input("User", array("role" => 'form')); ?>
-            <?php echo $this->Form->create("User", array("url" => array('controller' => 'users', 'action' => 'login'), "role" => 'form')); ?>
+            <?php echo $this->Form->create("User", array("url" => array('controller' => 'users', 'action' => 'add'), "role" => 'form')); ?>
               <div class='form-group'>
                 <?php echo $this->Form->input('username', array('class' => 'form-control', 'div' => false, 'label' => 'Username','placeholder' => 'Your Username')); ?>
               </div>
@@ -202,10 +202,6 @@
               <div class='form-group'>
                 <label for='signup-password1'>Password</label>
                 <input class='form-control' id='signup-password1' placeholder='Enter Your Password' type='password'>
-              </div>
-              <div class='form-group'>
-                <label for='signup-password2'>Re-Enter Password</label>
-                <input class='form-control' id='signup-password2' placeholder='Enter Password Again' type='password'>
               </div>
             <?php echo $this->Form->end(); ?>
           </div>

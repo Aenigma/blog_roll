@@ -10,9 +10,11 @@
 		<?php echo $this->element('pagination'); ?>
     </div>
     <div class="col-md-4">
+      <!--
       <div class="centered">
         <img src="holder.js/250x250" alt="Profile image"/>
       </div>
+      -->
       <div class="pull-left">
         <dl class="dl-horizontal">
           <dt><?php echo __('Email'); ?></dt>
@@ -58,6 +60,15 @@
           </dd>
         </dl>
       </div>
+      <?php
+        if(AuthComponent::user('is_author') || AuthComponent::user('id') == $user['User']['id']){
+          echo $this->Html->link('Edit Info',array(
+          'controller'=>'UserProfiles',
+          'action'=>'edit',
+          $user['UserProfile']['user_id']),
+          array('class'=>'btn btn-default pull-right'));
+        }
+      ?>
     </div>
 </div>
 

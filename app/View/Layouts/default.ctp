@@ -188,27 +188,18 @@
             <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>&times;</button>
             <h4 class='modal-title'>Sign Up</h4>
           </div>
-
-          <div class='modal-body'>
             <?php //echo $this->Form->input("User", array("role" => 'form')); ?>
-            <?php echo $this->Form->create("User", array("url" => array('controller' => 'users', 'action' => 'add'), "role" => 'form')); ?>
-              <div class='form-group'>
-                <?php echo $this->Form->input('username', array('class' => 'form-control', 'div' => false, 'label' => 'Username','placeholder' => 'Your Username')); ?>
-              </div>
-              <div class='form-group'>
-                <label for='signup-email'>Email</label>
-                <input class='form-control' id='signup-email' placeholder='Your Email' type='email'>
-              </div>
-              <div class='form-group'>
-                <label for='signup-password1'>Password</label>
-                <input class='form-control' id='signup-password1' placeholder='Enter Your Password' type='password'>
-              </div>
-            <?php echo $this->Form->end(); ?>
-          </div>
-          <div class='modal-footer'>
-            <button class='btn btn-primary'>Submit</button>
-            <button class='btn btn-default' data-dismiss='modal'>Cancel</button>
-          </div>
+            <?php echo $this->Form->create('User', array("url" => array('controller' => 'users', 'action' => 'add'), 'role' => 'form')); ?>
+            <div class='modal-body'>
+              <?php echo $this->Form->input('username', array('class' => 'form-control', 'div' => false, 'label' => 'Username','placeholder' => 'Your Username')); ?>
+              <?php echo $this->Form->input('email', array('class' => 'form-control', 'div' => false, 'label' => 'Email','placeholder' => 'Your Email')); ?>
+              <?php echo $this->Form->input('password', array('class' => 'form-control', 'div' => false, 'label' => 'Password','placeholder' => 'Your Email')); ?>
+            </div>
+            <div class='modal-footer'>
+              <?php echo $this->Form->submit('Submit', array('class' => 'btn btn-primary')); ?>
+              <button class='btn btn-default' data-dismiss='modal'>Cancel</button>
+            </div>
+          <?php echo $this->Form->end(); ?>
         </div>
       </div>
     </div>

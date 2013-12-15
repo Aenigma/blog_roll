@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
   public function beforeFilter() {
-    $this->Auth->allow('index', 'view', 'edit');
+    $this->Auth->allow('index', 'view', 'edit','add');
     return parent::beforeFilter();
   }
 
@@ -98,6 +98,24 @@ class UsersController extends AppController {
 			}
 		}
 	}
+
+/**
+ * sign up method
+ *
+ * @return void
+ */
+	public function signup() {
+		if ($this->request->is('post')) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
+				$this->Session->setFlash(__('The user has been saved.'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+			}
+		}
+	}
+
 
 /**
  * edit method

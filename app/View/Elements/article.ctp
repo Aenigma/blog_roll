@@ -126,11 +126,17 @@
 				array('controller'=>'articles','action'=>'view',
 				$article['Article']['id']), array('class' => 'btn btn-primary btn-sm')); ?>
 		<?php endif; ?>
+    <?php
+        $article_url = $this->Html->url(array(
+          'controller' => 'articles',
+          'action' => 'view', $article['Article']['id']),
+        true);
+    ?>
 		
 		<div class='article-extras-social pull-right'>
-      <div class='fb-share-button' data-type='button_count' style='vertical-align: top'></div>
-      <div class='g-plus' data-action='share' data-annotation='bubble'></div>
-      <a href='https://twitter.com/share' class='twitter-share-button'>Tweet</a>
+      <div class='fb-share-button' data-type='button_count' data-href='<?php echo $article_url; ?>' style='vertical-align: top'></div>
+      <div class='g-plus' data-action='share' data-annotation='bubble' data-href='<?php echo $article_url;?>'></div>
+      <a href='https://twitter.com/share' class='twitter-share-button' data-url='<?php echo $article_url;?>'>Tweet</a>
 		</div>
 	</div>
 	<hr />
@@ -143,7 +149,7 @@
 						<div class='media-body'>
 							<div class='media-heading'>
 								Posted on
-								<time datetime='<?php echo $comment['created']; ?>'>September 17, 2013</time>
+                <time datetime='<?php echo $comment['created']; ?>'> <?php echo CakeTime::format($comment['created'], '%B %e, %Y'); ?></time>
 								by
 								<?php if(!empty($comment['User']['UserProfile'])): ?>
 									<?php echo $this->Html->link($comment['User']['UserProfile']['first_name'] . ' ' . $comment['User']['UserProfile']['last_name'], array('controller' => 'users', 'action' => 'view', $comment['user_id'])); ?>
